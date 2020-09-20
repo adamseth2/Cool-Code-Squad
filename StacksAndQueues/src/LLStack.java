@@ -11,7 +11,7 @@ public class LLStack {
 
     // Constructor with no parameters for outer class
     public LLStack() {
-        // to do
+        head = null;
     }
 
     // This is an inner class specifically utilized for LLStack class,
@@ -22,8 +22,8 @@ public class LLStack {
 
         // Constructor with no parameters for inner class
         public Node() {
-            // to do
-            // to do
+            data = null;
+            next = null;
         }
 
         // Parametrized constructor for inner class
@@ -53,17 +53,20 @@ public class LLStack {
 
     // Returns the size of linked list by traversing the list
     public int size() {
-        int count = 0;
         if (head == null) {
-            return count;
-        }
-        Node currentNode = head;
-        while (head.next != null) {
-            currentNode = currentNode.next;
-            count++;
+            return 0;
         }
 
-        return count + 1;
+        int count = 0;
+
+        Node currentNode = head;
+        do {
+//            System.out.println(currentNode);
+            currentNode = currentNode.next;
+            count++;
+        } while (currentNode.next != null);
+
+        return count;
     }
 
     // Finds if there is match for the given object
@@ -74,7 +77,7 @@ public class LLStack {
                 return true;
             currentNode = currentNode.next;
         }
-        return false;
+        return false; // the object was not found
     }
 
     // Finds the first node containing the target item, and returns a
@@ -112,16 +115,13 @@ public class LLStack {
     }
 
     public boolean isEmpty() {
-        // to do
-
-        if (head != null)
-            return true;
-        return false;
+        // if the head is not there, nothing else will be there
+        return head != null;
     }
 
     public void clear() {
-        // to do
-
+        // uh just setting the head to null will effectively clear the list
+        head = null;
     }
 
     // For two lists to be equal they must contain the same data items in
