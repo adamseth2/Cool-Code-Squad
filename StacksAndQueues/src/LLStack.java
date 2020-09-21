@@ -64,7 +64,7 @@ public class LLStack {
 //            System.out.println(currentNode);
             currentNode = currentNode.next;
             count++;
-        } while (currentNode.next != null);
+        } while (currentNode != null);
 
         return count;
     }
@@ -116,7 +116,7 @@ public class LLStack {
 
     public boolean isEmpty() {
         // if the head is not there, nothing else will be there
-        return head != null;
+        return head == null;
     }
 
     public void clear() {

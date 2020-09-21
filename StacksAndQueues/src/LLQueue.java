@@ -13,13 +13,14 @@ public class LLQueue {
 
         // Constructor with no parameters for inner class
         public Node() {
-
+            data = null;
+            next = null;
         }
 
         // Parametrized constructor for inner class
         public Node(Object newData, Node nextLink) {
-            // to do: Data part of Node is an Object
-            // to do: Link to next node is a type Node
+            data = newData;
+            next = nextLink;
         }
     }
 
@@ -27,23 +28,36 @@ public class LLQueue {
     private Node back;
 
     public LLQueue() {
-        // to do
+        front = null;
+        back = null;
     }
 
     // offer(enqueue) adds the object at the back of the queue
     public void offer(Object o) {
-        // to do
+        Node newBack = new Node(o, null);
+        if(isEmpty()){
+            front = newBack;
+            back = newBack;
+        } else {
+            back.next = newBack;
+            back = newBack;
+        }
     }
 
     // poll(dequeue): retrieves and removes the head of this queue,
     // or returns null if this queue is empty.
     public Object poll() {
-        // to do
+        if(front==null){
+            return null;
+        }
+        Object tempHead = front.data;
+        front = front.next;
+        return tempHead;
     }
 
     // Returns the size of linked list by traversing the list
     public int size() {
-        Node currentNode = back;
+        Node currentNode = front;
         int currentSize = 0;
         while (currentNode != null) {
             currentSize++;
@@ -55,12 +69,15 @@ public class LLQueue {
     // peek: Retrieves, but does not remove, the head of this queue,
     // or returns null if this queue is empty.
     public Object peek() {
-        // to do
+        if(front == null){
+            return null;
+        }
+        return front.data;
     }
 
     //
     public boolean isEmpty() {
-        // to do
+        return front == null;
     }
 
     // For two lists to be equal they must contain the same data items in
