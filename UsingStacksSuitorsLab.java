@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
@@ -69,7 +70,30 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static boolean isPalindrome(String input) {
-		// todo: use a stack
+		Stack<Character> wordStack = new Stack<Character>();
+		char[] inputCharArray = input.toCharArray();
+		char[] bannedCharArray = { '.', ',', '?' };
+		for (char letter : inputCharArray) {
+			boolean allowedLetter = true;
+			for (char bannedChar : bannedCharArray) {
+				if (letter == bannedChar) {
+					allowedLetter = false;
+					break;
+				}
+			}
+			if (allowedLetter)
+				wordStack.push(letter);
+		}
+		char[] reversedInputCharArray = new char[wordStack.size()];
+		int index = 0;
+		while (!wordStack.isEmpty()) {
+			reversedInputCharArray[index] = wordStack.pop();
+			index++;
+		}
+		if (Arrays.equals(inputCharArray, reversedInputCharArray))
+			return true;
+		else
+			return false;
 	}
 
 	public static boolean isPalindromeRec(String sentence) {
