@@ -28,16 +28,17 @@ public class UsingStacksSuitorsLab implements Runnable {
 		System.out.println("String1 is \"" + s1 + "\"");
 		System.out.println("String2 is \"" + s2 + "\"");
 
-		/*
-		 * System.out.println(s1 + " reversed is: "); printReverse(s1);
-		 * System.out.println(s2 + " reversed is: "); printReverse(s2);
-		 * 
-		 * recPrintReverse(s1); System.out.println(); recPrintReverse(s2);
-		 * System.out.println();
-		 * 
-		 * System.out.println(s1 + " is a palindrome: " + isPalindrome(s1));
-		 * System.out.println(s2 + " is a palindrome: " + isPalindrome(s2));
-		 * 
+
+		System.out.println(s1 + " reversed is: "); printReverse(s1);
+		System.out.println(s2 + " reversed is: "); printReverse(s2);
+		System.out.println();
+
+		recPrintReverse(s1); recPrintReverse(s2);
+		System.out.println();
+
+		System.out.println(s1 + " is a palindrome: " + isPalindrome(s1));
+		System.out.println(s2 + " is a palindrome: " + isPalindrome(s2));
+		 /*
 		 * System.out.println(s1 + " is a palindrome(recursively): " +
 		 * isPalindromeRec(s1)); System.out.println(s2 +
 		 * " is a palindrome(recursively): " + isPalindromeRec(s2));
@@ -60,13 +61,18 @@ public class UsingStacksSuitorsLab implements Runnable {
 		}
 		String reversedWord = "";
 		while (!wordStack.isEmpty()) {
-			reversedWord += (String) wordStack.pop();
+			reversedWord += wordStack.pop();
 		}
 		System.out.println(reversedWord);
 	}
 
 	public static void recPrintReverse(String target) {
-		// todo
+		if(target.length()<2){
+			System.out.println(target);
+		} else{
+			System.out.print(target.charAt(target.length()-1));
+			recPrintReverse(target.substring(0,target.length()-1));
+		}
 	}
 
 	public static boolean isPalindrome(String input) {
