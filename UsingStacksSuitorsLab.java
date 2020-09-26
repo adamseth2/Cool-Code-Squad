@@ -28,21 +28,22 @@ public class UsingStacksSuitorsLab implements Runnable {
 		System.out.println("String1 is \"" + s1 + "\"");
 		System.out.println("String2 is \"" + s2 + "\"");
 
-
-		System.out.println(s1 + " reversed is: "); printReverse(s1);
-		System.out.println(s2 + " reversed is: "); printReverse(s2);
+		System.out.println(s1 + " reversed is: ");
+		printReverse(s1);
+		System.out.println(s2 + " reversed is: ");
+		printReverse(s2);
 		System.out.println();
 
-		recPrintReverse(s1); recPrintReverse(s2);
+		recPrintReverse(s1);
+		recPrintReverse(s2);
 		System.out.println();
 
 		System.out.println(s1 + " is a palindrome: " + isPalindrome(s1));
 		System.out.println(s2 + " is a palindrome: " + isPalindrome(s2));
-		 /*
-		 * System.out.println(s1 + " is a palindrome(recursively): " +
-		 * isPalindromeRec(s1)); System.out.println(s2 +
-		 * " is a palindrome(recursively): " + isPalindromeRec(s2));
-		 * 
+
+		System.out.println(s1 + " is a palindrome(recursively): " + isPalindromeRec(s1));
+		System.out.println(s2 + " is a palindrome(recursively): " + isPalindromeRec(s2));
+		/*
 		 * System.out.println("Did we build a Queue of Threads and start them? " +
 		 * buildThreadQueue());
 		 * 
@@ -67,11 +68,11 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static void recPrintReverse(String target) {
-		if(target.length()<2){
+		if (target.length() < 2) {
 			System.out.println(target);
-		} else{
-			System.out.print(target.charAt(target.length()-1));
-			recPrintReverse(target.substring(0,target.length()-1));
+		} else {
+			System.out.print(target.charAt(target.length() - 1));
+			recPrintReverse(target.substring(0, target.length() - 1));
 		}
 	}
 
@@ -103,7 +104,15 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static boolean isPalindromeRec(String sentence) {
-		// todo
+		if (sentence.length() < 2 && sentence.charAt(0) == sentence.charAt(sentence.length() - 1)) {
+			return true;
+		} else {
+			if (sentence.charAt(0) == sentence.charAt(sentence.length() - 1)) {
+				System.out.println(sentence.substring(1, sentence.length() - 1));
+				return isPalindrome(sentence.substring(1, sentence.length() - 1));
+			}
+		}
+		return false;
 	}
 
 	public static int findPlaceToStand(int numSuitors) {
@@ -115,9 +124,9 @@ public class UsingStacksSuitorsLab implements Runnable {
 		Queue<Thread> q = new LinkedList<Thread>();
 
 		// when our program starts up, it might create multiple threads to use
-		q.enqueue(new Thread(new UsingStacksSuitorsLab()));
-		q.enqueue(new Thread(new UsingStacksSuitorsLab()));
-		q.enqueue(new Thread(new UsingStacksSuitorsLab()));
+		// q.enqueue(new Thread(new UsingStacksSuitorsLab()));
+		// q.enqueue(new Thread(new UsingStacksSuitorsLab()));
+		// q.enqueue(new Thread(new UsingStacksSuitorsLab()));
 
 		System.out.println("Initial Thread order:");
 		q.toString();
