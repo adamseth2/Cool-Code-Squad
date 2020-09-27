@@ -56,7 +56,7 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static void printReverse(String target) {
-		Stack wordStack = new Stack();
+		Stack<Character> wordStack = new Stack<>();
 		for (char letter : target.toCharArray()) {
 			wordStack.push(letter);
 		}
@@ -77,7 +77,7 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static boolean isPalindrome(String input) {
-		Stack<Character> wordStack = new Stack<Character>();
+		Stack<Character> wordStack = new Stack<>();
 		char[] inputCharArray = input.toCharArray();
 		char[] bannedCharArray = { '.', ',', '?' };
 		for (char letter : inputCharArray) {
