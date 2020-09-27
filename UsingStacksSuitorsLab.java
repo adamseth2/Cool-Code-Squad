@@ -104,7 +104,7 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static boolean isPalindromeRec(String sentence) {
-		if (sentence.length() < 2 && sentence.charAt(0) == sentence.charAt(sentence.length() - 1)) {
+		if (sentence.length() < 2) {
 			return true;
 		} else {
 			if (sentence.charAt(0) == sentence.charAt(sentence.length() - 1)) {
