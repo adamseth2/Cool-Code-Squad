@@ -5,6 +5,7 @@ import java.util.Stack;
 /* 
  * 
  * UsingStacksSuitorsLab
+ * By: Adam Chhor, Jacob Kelleran, and Justin Zhu
  * 
  * This class is mostly a driver for playing with Strings as palindromes, 
  * both iteratively and recursively.  The UsingStacksSuitorsLab class itself is
@@ -49,7 +50,6 @@ public class UsingStacksSuitorsLab implements Runnable {
 		 *
 		 */
 		int n = 6; System.out.println("For " + n + " suitors, stand in place: " + findPlaceToStand(n));
-
 		n = 10; System.out.println("For " + n + " suitors, stand in place: " + findPlaceToStand(n));
 	}
 
@@ -66,6 +66,7 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static void recPrintReverse(String target) {
+		//first check if the String is only 1 character long
 		if (target.length() < 2) {
 			System.out.println(target);
 		} else {
@@ -113,7 +114,7 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static int findPlaceToStand(int numSuitors) {
-		// check for edge cases
+		//check for edge cases
 		if (numSuitors==0){
 			return -1;
 		}
@@ -122,19 +123,22 @@ public class UsingStacksSuitorsLab implements Runnable {
 		}
 
 		Queue<Integer> myQueue = new LinkedList<Integer>();
+		//adding the suitor numbers to the queue
 		int currentSuitor = 1;
 		while (numSuitors>0){
 			myQueue.add(currentSuitor);
 			currentSuitor++;
 			numSuitors--;
 		}
-		while (myQueue.size()>2) {
+
+		//removing every third suitor until there is only one suitor left in the queue
+		while (myQueue.size()>1) {
 			myQueue.add(myQueue.poll());
 			myQueue.add(myQueue.poll());
 			myQueue.remove();
 		}
 
-		return ((LinkedList<Integer>) myQueue).get(1);
+		return ((LinkedList<Integer>) myQueue).get(0);
 	}
 
 	public static boolean buildThreadQueue() { // returns true upon success
