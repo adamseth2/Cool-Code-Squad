@@ -11,7 +11,8 @@ import java.util.Stack;
  * both iteratively and recursively.  The UsingStacksSuitorsLab class itself is
  * a runnable object, so it can be passed to a thread in our Queue demo
  * 
- * 
+ * PRESUMPTION: INPUT DOESN'T HAVE PUNCTUATION AND ALL LETTERS ARE IN THE SAME CASE
+ *
  */
 
 public class UsingStacksSuitorsLab implements Runnable {
@@ -49,15 +50,21 @@ public class UsingStacksSuitorsLab implements Runnable {
 		 * buildThreadQueue());
 		 *
 		 */
-		int n = 6; System.out.println("For " + n + " suitors, stand in place: " + findPlaceToStand(n));
-		n = 10; System.out.println("For " + n + " suitors, stand in place: " + findPlaceToStand(n));
+		int n = 6;
+		System.out.println("For " + n + " suitors, stand in place: " + findPlaceToStand(n));
+		n = 10;
+		System.out.println("For " + n + " suitors, stand in place: " + findPlaceToStand(n));
 	}
 
+	// TIME COMPLEXITY: O(n)
 	public static void printReverse(String target) {
 		Stack<Character> wordStack = new Stack<>();
+		// Pushes each letter of target to a stack
 		for (char letter : target.toCharArray()) {
 			wordStack.push(letter);
 		}
+		// Pop's stack until empty and concats each popped character to a String and
+		// prints it out
 		String reversedWord = "";
 		while (!wordStack.isEmpty()) {
 			reversedWord += wordStack.pop();
@@ -65,8 +72,9 @@ public class UsingStacksSuitorsLab implements Runnable {
 		System.out.println(reversedWord);
 	}
 
+	// TIME COMPLEXITY: O(n)
 	public static void recPrintReverse(String target) {
-		//first check if the String is only 1 character long
+		// first check if the String is only 1 character long
 		if (target.length() < 2) {
 			System.out.println(target);
 		} else {
@@ -75,64 +83,58 @@ public class UsingStacksSuitorsLab implements Runnable {
 		}
 	}
 
+	// TIME COMPLEXITY: O(n)
 	public static boolean isPalindrome(String input) {
 		Stack<Character> wordStack = new Stack<>();
-		char[] inputCharArray = input.toCharArray();
-		char[] bannedCharArray = { '.', ',', '?' };
-		for (char letter : inputCharArray) {
-			boolean allowedLetter = true;
-			for (char bannedChar : bannedCharArray) {
-				if (letter == bannedChar) {
-					allowedLetter = false;
-					break;
-				}
-			}
-			if (allowedLetter)
-				wordStack.push(letter);
+		for (char letter : input.toCharArray()) {
+			wordStack.push(letter);
 		}
-		char[] reversedInputCharArray = new char[wordStack.size()];
-		int index = 0;
+		String reversedWord = "";
 		while (!wordStack.isEmpty()) {
-			reversedInputCharArray[index] = wordStack.pop();
-			index++;
+			reversedWord += wordStack.pop();
 		}
-		if (Arrays.equals(inputCharArray, reversedInputCharArray))
+		if (reversedWord.equals(input))
 			return true;
 		else
 			return false;
 	}
 
+	// TIME COMPLEXITY: O(n)
 	public static boolean isPalindromeRec(String sentence) {
+		// base case
 		if (sentence.length() < 2) {
 			return true;
 		} else {
+			// checks too see if first and last char's are the saem
 			if (sentence.charAt(0) == sentence.charAt(sentence.length() - 1)) {
+				// calls this function again but trims out the first and last letters
 				return isPalindrome(sentence.substring(1, sentence.length() - 1));
 			}
 		}
+		// first and last char's aren't the same
 		return false;
 	}
 
 	public static int findPlaceToStand(int numSuitors) {
-		//check for edge cases
-		if (numSuitors==0){
+		// check for edge cases
+		if (numSuitors == 0) {
 			return -1;
 		}
-		if (numSuitors==1){
+		if (numSuitors == 1) {
 			return 1;
 		}
 
 		Queue<Integer> myQueue = new LinkedList<Integer>();
-		//adding the suitor numbers to the queue
+		// adding the suitor numbers to the queue
 		int currentSuitor = 1;
-		while (numSuitors>0){
+		while (numSuitors > 0) {
 			myQueue.add(currentSuitor);
 			currentSuitor++;
 			numSuitors--;
 		}
 
-		//removing every third suitor until there is only one suitor left in the queue
-		while (myQueue.size()>1) {
+		// removing every third suitor until there is only one suitor left in the queue
+		while (myQueue.size() > 1) {
 			myQueue.add(myQueue.poll());
 			myQueue.add(myQueue.poll());
 			myQueue.remove();
