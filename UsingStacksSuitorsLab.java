@@ -46,13 +46,11 @@ public class UsingStacksSuitorsLab implements Runnable {
 		/*
 		 * System.out.println("Did we build a Queue of Threads and start them? " +
 		 * buildThreadQueue());
-		 * 
-		 * int n = 6; System.out.println("For " + n + " suitors, stand in place:" +
-		 * findPlaceToStand(n));
-		 * 
-		 * n = 10; System.out.println("For " + n + " suitors, stand in place:" +
-		 * findPlaceToStand(n));
+		 *
 		 */
+		int n = 6; System.out.println("For " + n + " suitors, stand in place: " + findPlaceToStand(n));
+
+		n = 10; System.out.println("For " + n + " suitors, stand in place: " + findPlaceToStand(n));
 	}
 
 	public static void printReverse(String target) {
@@ -108,7 +106,6 @@ public class UsingStacksSuitorsLab implements Runnable {
 			return true;
 		} else {
 			if (sentence.charAt(0) == sentence.charAt(sentence.length() - 1)) {
-				System.out.println(sentence.substring(1, sentence.length() - 1));
 				return isPalindrome(sentence.substring(1, sentence.length() - 1));
 			}
 		}
@@ -116,8 +113,28 @@ public class UsingStacksSuitorsLab implements Runnable {
 	}
 
 	public static int findPlaceToStand(int numSuitors) {
-		// todo
-		return -1;
+		// check for edge cases
+		if (numSuitors==0){
+			return -1;
+		}
+		if (numSuitors==1){
+			return 1;
+		}
+
+		Queue<Integer> myQueue = new LinkedList<Integer>();
+		int currentSuitor = 1;
+		while (numSuitors>0){
+			myQueue.add(currentSuitor);
+			currentSuitor++;
+			numSuitors--;
+		}
+		while (myQueue.size()>2) {
+			myQueue.add(myQueue.poll());
+			myQueue.add(myQueue.poll());
+			myQueue.remove();
+		}
+
+		return ((LinkedList<Integer>) myQueue).get(1);
 	}
 
 	public static boolean buildThreadQueue() { // returns true upon success
