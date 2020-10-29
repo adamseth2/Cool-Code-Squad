@@ -22,24 +22,32 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Constructs a MyArrayList with a specified capacity
 	 */
 	public MyArrayList(int initialCapacity) {
+		this.items = (E[]) new Object[initialCapacity];
+		this.size = 0;
 	}
 
 	/**
 	 * Constructs a MyArrayList with a default capacity
 	 */
 	public MyArrayList() {
+		this(DEFAULT_CAPACITY);
 	}
 
 	/**
 	 * Returns the number of elements in this list.
 	 */
 	public int size() {
+		return size;
 	}
 
 	/**
 	 * Returns true if this list contains no elements.
 	 */
 	public boolean isEmpty() {
+		if(size == 0)
+			return true;
+
+		return false;
 	}
 
 	/**
@@ -48,8 +56,17 @@ public class MyArrayList<E> implements MyList<E> {
 	public boolean add(E o) {
 		// If there is no room in the array items
 		// Make room for the new element
+		if(this.size < this.items.length){
+			items[size++] = o;
+		} else{
+
+        }
+
 
 		// add the new element
+
+
+		return true;
 	}
 
 	/**
