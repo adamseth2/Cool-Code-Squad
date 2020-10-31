@@ -56,15 +56,15 @@ public class MyArrayList<E> implements MyList<E> {
 	public boolean add(E o) {
 		// If there is no room in the array items
 		// Make room for the new element
-		if(this.size < this.items.length){
-			items[size++] = o;
-		} else{
+		if(this.size >= this.items.length){
+			E[] newArray = (E[]) new Object[this.items.length*2];
+			for(int i = 0; i < this.items.length; i++){
+				newArray[i] = this.items[i];
+			}
+			this.items = newArray;
+		}
 
-        }
-
-
-		// add the new element
-
+		items[size++] = o;
 
 		return true;
 	}
@@ -73,12 +73,19 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Empties this List
 	 */
 	public void clear() {
+		this.size = 0;
+		this.items = (E[]) new Object[this.items.length];
 	}
 
 	/**
 	 * Returns the element at the specified position in this list.
 	 */
 	public E get(int index) {
+	    //check for index out of bounds exception
+        if(index >= size || index < 0){
+            throw new IndexOutOfBoundsException("please enter a valid index");
+        }
+	    return this.items[index];
 	}
 
 	/**
@@ -92,6 +99,7 @@ public class MyArrayList<E> implements MyList<E> {
 		}
 
 		// If we get here, o is not in the list
+        return -1;
 	}
 
 	/**
