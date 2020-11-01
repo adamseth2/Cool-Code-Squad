@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 public class MyArrayList<E> implements MyList<E> {
 
 	// Use an array for the implementation
-	private E[] items; 
+	private E[] items;
 
 	// Default capacity of the array
 	private static final int DEFAULT_CAPACITY = 10;
@@ -44,7 +44,7 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Returns true if this list contains no elements.
 	 */
 	public boolean isEmpty() {
-		if(size == 0)
+		if (size == 0)
 			return true;
 
 		return false;
@@ -56,9 +56,9 @@ public class MyArrayList<E> implements MyList<E> {
 	public boolean add(E o) {
 		// If there is no room in the array items
 		// Make room for the new element
-		if(this.size >= this.items.length){
-			E[] newArray = (E[]) new Object[this.items.length*2];
-			for(int i = 0; i < this.items.length; i++){
+		if (this.size >= this.items.length) {
+			E[] newArray = (E[]) new Object[this.items.length * 2];
+			for (int i = 0; i < this.items.length; i++) {
 				newArray[i] = this.items[i];
 			}
 			this.items = newArray;
@@ -81,11 +81,11 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Returns the element at the specified position in this list.
 	 */
 	public E get(int index) {
-	    //check for index out of bounds exception
-        if(index >= size || index < 0){
-            throw new IndexOutOfBoundsException("please enter a valid index");
-        }
-	    return this.items[index];
+		// check for index out of bounds exception
+		if (index >= size() || index < 0) {
+			throw new IndexOutOfBoundsException("please enter a valid index");
+		}
+		return this.items[index];
 	}
 
 	/**
@@ -94,67 +94,94 @@ public class MyArrayList<E> implements MyList<E> {
 	public int indexOf(Object o) {
 		// If o is null (look for a null element in the array)
 		if (o == null) {
-		} else // o is an object (use equals)
-		{
+			return -1;
+		} else { // o is an object (use equals)
+			for (int i = 0; i < size(); i++) {
+				E currentObj = items[i];
+				if (o.equals(currentObj))
+					return i;
+			}
 		}
-
 		// If we get here, o is not in the list
-        return -1;
+		return -1;
 	}
 
 	/**
 	 * Returns true if this list contains the specified element.
 	 */
 	public boolean contains(Object o) {
-		// easy with indexOf
+		if (indexOf(o) >= 0)
+			return true;
+		return false;
 	}
 
 	/**
 	 * Removes the element in the List at position index
 	 */
 	public boolean remove(int index) {
-
+		if (size() >= index)
+			return false;
+		for (int i = index + 1; i < items.size(); i++) {
+			E temp = items[i];
+			items[i - 1] = temp;
+		}
+		size--;
 		// compact the array
 
 		// let's gc do its work
-
+		return true;
 	}
 
 	/**
 	 * Removes the element in the List at position index
 	 */
 	public boolean remove(Object o) {
-		// easy with indexOf and remove
+		if (size() >= index)
+			return false;
+		int objectIndex = indexOf(o);
+		remove(objectIndex);
+		return true;
 	}
 
 	/**
 	 * Adds the specified object at the specified location
 	 */
 	public boolean add(int index, E o) {
-
+		if (index > size() + 1)
+			return false;
+		E temp = items[i];
+		items[i] = o;
+		for (int i = index + 1; i < ++size; i++) {
+			item[i] = temp;
+			temp = items[i];
+		}
+		return true;
 		// one way: add at the end and then shift the elements around
 	}
 
 	/**
 	 * Is this List equal to the specified object?
 	 */
-public boolean equals(Object o)
-    {
-        if (/* ???? */) {
-            // o is an ArrayList
+	public boolean equals(Object o) {
+		// JACOB IDK IF THIS WORKS OR NOTTT!!!!?!?!?!
+		if (o.size() != this.size()) {
+			// o is an ArrayList
 
-            // if the number of elements is not the same, this and o are not the
+			// if the number of elements is not the same, this and o are not the
 			// same
 
-            // Check the elements one by one
-
-            // At this point, the lists are equal
-
-        }
-		else {
+			// Check the elements one by one
+			for (int i = 0; i < this.size(); i++) {
+				if (!o.items[i].equals(this.items[i]))
+					return false;
+			}
+			// At this point, the lists are equal
+			return true;
+		} else {
 			return false;
-	    }
+		}
 	}
+
 	/**
 	 * An inner class to define the iterator
 	 */
