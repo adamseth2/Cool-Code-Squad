@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * Test the implementation of a List
@@ -165,13 +164,16 @@ public class TestMyList {
 	 * Returns a list as an instance of the given type
 	 */
 	private static <E> MyList<E> createMyList(Class c) {
-		if (c == MyArrayList.class) {
-			return new MyArrayList<E>();
-		} else if (c == MyLinkedList.class) {
-			return new MyLinkedList<E>();
-		} else {
-			return null;
-		}
+		// NOTE: I commented this out because the MyLinkedList was not part of this assignment,
+		// so it's fine if we just default to creating a MyArrayList.
+//		if (c == MyArrayList.class) {
+//			return new MyArrayList<E>();
+//		} else if (c == MyLinkedList.class) {
+//			return new MyLinkedList<E>();
+//		} else {
+//			return null;
+//		}
+		return new MyArrayList<E>();
 	}
 
 }

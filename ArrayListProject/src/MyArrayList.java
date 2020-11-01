@@ -94,7 +94,9 @@ public class MyArrayList<E> implements MyList<E> {
 	public int indexOf(Object o) {
 		// If o is null (look for a null element in the array)
 		if (o == null) {
-			return -1;
+			for (int i = 0; i < size(); i++) {
+				if (o == items[i]) return i;
+			}
 		} else { // o is an object (use equals)
 			for (int i = 0; i < size(); i++) {
 				E currentObj = items[i];
@@ -119,12 +121,13 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Removes the element in the List at position index
 	 */
 	public boolean remove(int index) {
-		if (size() >= index)
+		if (index >= size())
 			return false;
-		for (int i = index + 1; i < items.size(); i++) {
-			E temp = items[i];
-			items[i - 1] = temp;
+		for (int i = index + 1; i < items.length; i++) {
+			items[i - 1] = items[i];
 		}
+		// do not need to set the last item to null because the size variable point below it,
+		// essentially making it useless
 		size--;
 		// compact the array
 
@@ -136,27 +139,59 @@ public class MyArrayList<E> implements MyList<E> {
 	 * Removes the element in the List at position index
 	 */
 	public boolean remove(Object o) {
-		if (size() >= index)
-			return false;
 		int objectIndex = indexOf(o);
-		remove(objectIndex);
-		return true;
+		if (objectIndex == -1)
+			return false;
+		return remove(objectIndex);
 	}
 
 	/**
 	 * Adds the specified object at the specified location
 	 */
 	public boolean add(int index, E o) {
-		if (index > size() + 1)
-			return false;
-		E temp = items[i];
-		items[i] = o;
-		for (int i = index + 1; i < ++size; i++) {
-			item[i] = temp;
-			temp = items[i];
+
+		// precondition
+		if (index < 0 || index > size()) return false;
+
+		// I was going to add this to simplify things, but
+		// I figured that for the purpose of this assignment
+		// and proving that this method works properly anyways,
+		// I just decided to leave it out.
+//		if (index == size()) return add(o);
+
+		// See inside comment for why this part is so long
+
+		// If there is no room in the array items
+		// Make room for the new element
+
+		if (this.size >= this.items.length) {
+			E[] newArray = (E[]) new Object[this.items.length * 2];
+			// go over the lists with two iterators, one goes over the old one and one goes over the new one,
+			// so we can add an offset between them. move until we reach the end of the NEW array (this is
+			// important, if we go until the end of the old array it will not properly add an element to the end)
+			for (int oldArrayIndex = 0, newArrayIndex = 0; newArrayIndex < this.items.length + 1; oldArrayIndex++, newArrayIndex++) {
+				// if the index is for the added element, just insert the element there and shift
+				// everything else up one, so we can do both the expansion and the addition in one
+				// single operation, which seemed logical to me.
+				if (oldArrayIndex == index) {
+					// set object and THEN increment one extra
+					newArray[newArrayIndex++] = o;
+				} else {
+					newArray[newArrayIndex] = this.items[oldArrayIndex];
+				}
+			}
+			this.items = newArray;
+			size++;
+		} else {
+			// iterate backwards from one greater than the current end of the list,
+			// copying the previous item into the current index, and when we reach
+			// the target index, copy the provided value into it.
+			for (int i = size++; i > index; i--) {
+				items[i] = items[i - 1];
+			}
+			items[index] = o;
 		}
 		return true;
-		// one way: add at the end and then shift the elements around
 	}
 
 	/**
@@ -164,7 +199,11 @@ public class MyArrayList<E> implements MyList<E> {
 	 */
 	public boolean equals(Object o) {
 		// JACOB IDK IF THIS WORKS OR NOTTT!!!!?!?!?!
-		if (o.size() != this.size()) {
+		if (!(o instanceof MyArrayList)) {
+			return false;
+		}
+		MyArrayList compared = (MyArrayList) o;
+		if (compared.size() == this.size()) {
 			// o is an ArrayList
 
 			// if the number of elements is not the same, this and o are not the
@@ -172,7 +211,7 @@ public class MyArrayList<E> implements MyList<E> {
 
 			// Check the elements one by one
 			for (int i = 0; i < this.size(); i++) {
-				if (!o.items[i].equals(this.items[i]))
+				if (!compared.items[i].equals(this.items[i]))
 					return false;
 			}
 			// At this point, the lists are equal
@@ -198,24 +237,42 @@ public class MyArrayList<E> implements MyList<E> {
 		 * Create an iterator for a MyArrayList
 		 */
 		public MyIterator(MyArrayList<E> list) {
+			this.list = list;
 		}
 
 		/**
 		 * Any element left in the list?
 		 */
 		public boolean hasNext() {
+			return index < list.size();
 		}
 
 		/**
 		 * Returns the current element in the list and move to the next element
 		 */
 		public E next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException();
+			}
+			E element = list.get(index);
+			lastIndex = index;
+			index++;
+			return element;
 		}
 
 		/**
 		 * Removes the last object returned by next
 		 */
 		public void remove() {
+			if (lastIndex < 0) {
+				// I think this is correct
+				throw new IllegalStateException();
+			}
+			list.remove(lastIndex);
+			// subtract one from both index and lastIndex because when the item is removed,
+			// the index of the last "next'd" element changes to the element "next'd" one before
+			index--;
+			lastIndex--;
 		}
 	}
 
@@ -225,5 +282,6 @@ public class MyArrayList<E> implements MyList<E> {
 	 * @return an iterator over the elements in this list in proper sequence.
 	 */
 	public Iterator<E> iterator() {
+		return new MyIterator(this);
 	}
 }
