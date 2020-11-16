@@ -6,13 +6,13 @@ public class Square extends Rectangle {
     @Override
     public void setLength(double length) {
         super.setLength(length);
-        setWidth(length);
+        super.setWidth(length);
     }
 
     @Override
     public void setWidth(double width) {
         super.setWidth(width);
-        setLength(width);
+        super.setLength(width);
     }
 
     public String toString(){
