@@ -3,12 +3,12 @@ public class Shape {
     private String color;
 
     // Constructors
-    public Shape(){
-        this.color = "green";
+    public Shape() {
         this.filled = true;
+        this.color = "green";
     }
 
-    public Shape(boolean filled, String color){
+    public Shape(boolean filled, String color) {
         this.filled = filled;
         this.color = color;
     }
@@ -29,11 +29,11 @@ public class Shape {
         this.color = color;
     }
 
-    public String toString(){
+    public String toString() {
         String result = "A Shape with color of " + getColor() + " and ";
-        if(filled){
+        if (filled) {
             result += "filled";
-        } else{
+        } else {
             result += "not filled";
         }
         return result;
