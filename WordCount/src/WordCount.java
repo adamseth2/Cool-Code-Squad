@@ -13,7 +13,7 @@ public class WordCount {
 	public static final int OCCURRENCES = 2000;
 	public static void main(String[] args) throws FileNotFoundException {
 		//Fix file system probably
-		Scanner input = new Scanner(new File("./mobydick.txt"));
+		Scanner input = new Scanner(new File("mobydick.txt"));
 		// Sort values by accending order
 		System.out.println(getCountMap(input));
 
