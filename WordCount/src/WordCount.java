@@ -3,7 +3,7 @@ import java.util.*;
 
 /*PARTICIPATION
 ADAM: Push initial commit; completed getCountMap method;took screenshot of console results
-
+JUSTIN: Fixed NullPointedException and fixed code not finding file because it was in the wrong place
 
 */
 public class WordCount {
@@ -27,7 +27,7 @@ public class WordCount {
 		Map<String, Integer> wordCountMap = new TreeMap<>();
 		while(in.hasNext()) {
 			String word = in.next();
-			if (wordCountMap.containsKey(word)) wordCountMap.put(word,1);
+			if (!wordCountMap.containsKey(word)) wordCountMap.put(word,1);
 			else {
 				int initialCount = wordCountMap.get(word);
 				wordCountMap.put(word, initialCount + 1);
