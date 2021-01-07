@@ -6,6 +6,9 @@ ADAM: Push initial commit; completed getCountMap method;took screenshot of conso
 JUSTIN: Fixed NullPointedException and fixed FileNotFound because file was in the wrong place; Added printing of results using the 2000 occurrences method
 
 */
+/*REFLECTION
+JUSTIN: Learned that every variable should have a purpose otherwise there's no point of it being there and that's how I figured out that the OCCURRENCES variable was meant for
+*/
 public class WordCount {
 	// minimum number of occurrences needed to be printed - 2000;
 	// read the book into a map
@@ -19,6 +22,7 @@ public class WordCount {
 		System.out.println("This program displays the most frequently occurring words from the book Moby-Dick: ");
 		Map<String, Integer> result = getCountMap(input);
 
+		//complexity of O(n) because it is just traversing through the entire map once and finding the words that occur more than 2000 times.
 		for(Map.Entry<String, Integer> word: result.entrySet()){
 			if(word.getValue()>OCCURRENCES){
 				System.out.println(word.getKey() + " occurs " + word.getValue() + " times.");
