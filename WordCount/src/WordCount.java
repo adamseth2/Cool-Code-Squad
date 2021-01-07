@@ -7,6 +7,7 @@ JUSTIN: Fixed NullPointedException and fixed FileNotFound because file was in th
 JACOB: Implemented simple word cleansing (cleaning maybe? Not sure if that's even the proper phrase...) algorithm and a String filter
 */
 /*REFLECTION
+ADAM: Learned more map api's like containsKey() and more sbout how scanners read filrs
 JUSTIN: Learned that every variable should have a purpose otherwise there's no point of it being there and that's how I figured out that the OCCURRENCES variable was meant for
 JACOB: Learned to think about what is being printed before debugging. While I was testing cleansing, the output
 		contained "{=4752, " or something at the beginning, which I interpreted to mean that opening curly braces were
@@ -26,7 +27,6 @@ public class WordCount {
 			'"', '\'', ')', '}', ']', '-', '/', '.', ',', '!', '?', ';', ':'));
 
 	public static void main(String[] args) throws FileNotFoundException {
-		//Fix file system probably
 		//Note to put text file in project folder and not in src folder
 		Scanner input = new Scanner(new File("mobydick.txt"));
 		// print out only words that occur more than 2000 times
