@@ -1,4 +1,3 @@
-package hashtableStudent;
 
 // Implements a set of integers using a hash table.
 // The hash table uses separate chaining to resolve collisions.
@@ -43,7 +42,6 @@ public class MyHashSet {
     
     // Returns the number of elements in the queue.
     public int size() {
-    	// TO DO
     	return size;
     }
     
