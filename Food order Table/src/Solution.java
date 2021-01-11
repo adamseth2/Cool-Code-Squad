@@ -18,38 +18,53 @@ public class Solution {
     System.out.println(displayTable(orders));
   }
   public static List<List<String>> displayTable(List<List<String>> orders) {
-    Map<Integer, TreeMap<String, Integer>> tableFoodItemOrders = new TreeMap<>();
-    //Keeps track of unique food items
+    Map<Integer, Map<String, Integer>> tableFoodItemOrders = new TreeMap<>();
+    // Keeps track of unique food items
     SortedSet<String> foodItems = new TreeSet<>();
 
     for (List<String> order : orders) {
-      //Must convert table number from String to Int because it is given in a list of strings
-      int tableNumber = Integer.parseInt(order.get(1));
+      // Must convert table number from String to Int because it is given in a list of strings
+      // Integer.valueOf() stores previous results, so with multiple orders per table, it is better than Integer.parseInt()
+      int tableNumber = Integer.valueOf(order.get(1));
       String item = order.get(2);
-      // If the table number doesn't exist, add the the number number
-      if (tableFoodItemOrders.get(tableNumber) ==null) tableFoodItemOrders.put(tableNumber, new TreeMap<String, Integer>());
-      Map currTableMap = tableFoodItemOrders.get(tableNumber);
-      //If the food item exist add 1 else add food item
-      if (currTableMap.containsKey(item)) {
-        int originalCount = (int) currTableMap.get(item);
-        currTableMap.put(item, originalCount + 1);
-      } else currTableMap.put(item, 1);
+
+      // If the table number doesn't exist, add a new table with that number
+      Map<String, Integer> table = tableFoodItemOrders.computeIfAbsent(tableNumber, k -> new HashMap<>());
+
+      // If the food item exist add 1 else add food item
+      Integer orderCount = table.getOrDefault(item, 0) + 1;
+      table.put(item, orderCount);
+
       //Adds unique food items
       foodItems.add(item);
     }
-    System.out.println();
-    List<List<String>> bob = new ArrayList<>();
-    //first row of the table is the list of all dishes in alphabetical order
-    bob.add(new ArrayList<>());
-    bob.get(0).add("Table");
-    bob.get(0).addAll(foodItems);
-    for(Map.Entry<Integer, TreeMap<String,Integer>> currentRow : tableFoodItemOrders.entrySet()){
-        //TO DO: out the row number at the start of each arrayList and then the number of each dish, then add arrayList to bob
 
+    List<List<String>> finalTable = new ArrayList<>();
+    //first row of the table is the list of all dishes in alphabetical order
+    finalTable.add(new ArrayList<>(Collections.singletonList("Table")));
+    finalTable.get(0).addAll(foodItems);
+
+    // Convert the map system to a list system
+    List<String> currentRow;
+    Integer currentValue;
+    for (Map.Entry<Integer, Map<String,Integer>> tableEntry : tableFoodItemOrders.entrySet()) {
+      // Add the table number to the beginning of the row
+      currentRow = new ArrayList<>(Collections.singletonList(tableEntry.getKey().toString()));
+      // For each menu item in the top row, add the appropriate value for this table
+      for (String menuItem : foodItems) {
+        // If there is at least one item in the table's orders, add that amount to the table. Else, add zero.
+        // I don't know if this actually helps, but by not using .getOrDefault(), we can just use "0" instead
+        // of creating a new Integer and calling .toString()
+        currentValue = tableEntry.getValue().get(menuItem);
+        if (currentValue != null) {
+          currentRow.add(currentValue.toString());
+        } else {
+          currentRow.add("0");
+        }
+      }
+      finalTable.add(currentRow);
     }
 
-    return bob;
-
-    //Need to implement converting maps into List
+    return finalTable;
   }
 }
