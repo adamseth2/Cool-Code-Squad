@@ -5,18 +5,24 @@ Group Cool Code Squad
 
 
  **/
+//TIME COMPLEXITY: O(n)
+//SPACE COMPLEXITY: O(n)
 public class Solution {
   public static void main(String[] args) {
     //Test case
-        List<List<String>> orders = new ArrayList<>();
+    List<List<String>> orders = new ArrayList<>();
     String[] order1arr = {"David","3","Ceviche"};
-    String[] order2arr = {"David","3","Bob"};
+    String[] order2arr = {"David","3","Gummy bear"};
+    String[] order3arr = {"David","4","Gummy bear"};
     List<String> order1 = Arrays.asList(order1arr);
     List<String> order2 = Arrays.asList(order2arr);
+    List<String> order3 = Arrays.asList(order3arr);
     orders.add(order1);
     orders.add(order2);
+    orders.add(order3);
     System.out.println(displayTable(orders));
   }
+  //Made static so we don't have to make an instance of it to run the code
   public static List<List<String>> displayTable(List<List<String>> orders) {
     Map<Integer, Map<String, Integer>> tableFoodItemOrders = new TreeMap<>();
     // Keeps track of unique food items
