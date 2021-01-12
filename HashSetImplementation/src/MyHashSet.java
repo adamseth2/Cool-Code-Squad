@@ -24,20 +24,47 @@ public class MyHashSet {
     
     // Returns true if the given value is found in this set.
     public boolean contains(int value) {
-    	// TO DO
+        HashEntry currentEntry = elementData[hashFunction(value)];
+        //first check if the hash key has any values
+        while(currentEntry != null){
+            if(currentEntry.data == value){
+                return true;
+            }
+            //loop through a linked list if there are multiple values in one hash key
+            currentEntry = currentEntry.next;
+        }
     	return false;
     }
     
     // Returns true if there are no elements in this queue.
     public boolean isEmpty() {
-    	// TO DO
-        return false;
+        //if add function has never been called, the hashset is empty and size will still be 0
+        return size == 0;
     }
     
     // Removes the given value if it is contained in the set.
     // If the set does not contain the value, has no effect.
     public void remove(int value) {
-    	// TO DO
+    	int hashIndex = hashFunction(value);
+        HashEntry currentEntry = elementData[hashIndex];
+        HashEntry previousEntry = null;
+        while(currentEntry != null)
+        {
+            if(currentEntry.data == value && previousEntry == null)
+            {
+                elementData[hashIndex] = currentEntry.next;
+                size--;
+                break;
+            } else if(currentEntry.data == value)
+            {
+                previousEntry.next = currentEntry.next;
+                elementData[hashIndex] = previousEntry;
+                size--;
+                break;
+            }
+            previousEntry = currentEntry;
+            currentEntry = currentEntry.next;
+        }
     }
     
     // Returns the number of elements in the queue.
