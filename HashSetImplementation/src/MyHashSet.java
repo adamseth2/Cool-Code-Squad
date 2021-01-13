@@ -13,8 +13,20 @@ public class MyHashSet {
     }
     
     // Adds the given element to this set
+    // Jacob
     public void add(int value) {
-    	// TO DO
+        int hash = hashFunction(value);
+        if (contains(value)) return;
+        if (elementData[hash] == null) {
+            elementData[hash] = new HashEntry(value);
+        } else {
+            // currentEntry = elementData[hash];
+            // while (currentEntry.next != null) currentEntry = currentEntry.next;
+            // currentEntry.next = new HashEntry(value);
+            elementData[hash] = new HashEntry(value, elementData[hash]);
+        }
+        size++;
+        if (loadFactor() > MAX_LOAD_FACTOR) rehash();
     }
     
     // Removes all elements from the set.
@@ -23,6 +35,7 @@ public class MyHashSet {
     }
     
     // Returns true if the given value is found in this set.
+    //Justin
     public boolean contains(int value) {
         HashEntry currentEntry = elementData[hashFunction(value)];
         //first check if the hash key has any values
@@ -33,10 +46,11 @@ public class MyHashSet {
             //loop through a linked list if there are multiple values in one hash key
             currentEntry = currentEntry.next;
         }
-    	return false;
+        return false;
     }
     
     // Returns true if there are no elements in this queue.
+    // Justin
     public boolean isEmpty() {
         //if add function has never been called, the hashset is empty and size will still be 0
         return size == 0;
@@ -44,6 +58,7 @@ public class MyHashSet {
     
     // Removes the given value if it is contained in the set.
     // If the set does not contain the value, has no effect.
+    // Justin
     public void remove(int value) {
     	int hashIndex = hashFunction(value);
         HashEntry currentEntry = elementData[hashIndex];
@@ -96,8 +111,7 @@ public class MyHashSet {
     
     // Returns the preferred hash bucket index for the given value.
     private int hashFunction(int value) {
-    	// TO DO
-    	return -1;
+    	return Math.abs(value % elementData.length);
     }
     
     private double loadFactor() {
