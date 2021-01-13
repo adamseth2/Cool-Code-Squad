@@ -2,6 +2,10 @@ package HashSetImplementation.src;
 
 // Implements a set of integers using a hash table.
 // The hash table uses separate chaining to resolve collisions.
+/* PARTICPIATION
+*
+* Adam: wrote clear, rehash and loadFactor and fixed bugs for test
+* */
 public class MyHashSet {
     private static final double MAX_LOAD_FACTOR = 0.75;
     private HashEntry[] elementData;
@@ -118,15 +122,23 @@ public class MyHashSet {
     }
     //Adam
     private double loadFactor() {
-    	return (double) size/ elementData.length;
+        System.out.println((double) size/ elementData.length);
+
+        return (double) size/ elementData.length;
     }
     
     // Resizes the hash table to twice its former size.
     private void rehash() {
     	HashEntry[] oldElementData = this.elementData;
-    	elementData = new HashEntry[oldElementData.length];
-    	for (HashEntry element : elementData) {
-    	    add(element.data);
+    	elementData = new HashEntry[oldElementData.length*2];
+    	size = 0;
+        for (int i = 0; i < oldElementData.length; i++) {
+            HashEntry curr = oldElementData[i];
+    	    while (curr != null) {
+    	      System.out.println(curr.data);
+            add(curr.data);
+            curr = curr.next;
+    	    }
       }
     }
     
