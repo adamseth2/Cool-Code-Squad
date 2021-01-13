@@ -30,8 +30,10 @@ public class MyHashSet {
     }
     
     // Removes all elements from the set.
+    //Make it so the capacity is the same after clearing
+    //Adam
     public void clear() {
-    	// TO DO
+        elementData = new HashEntry[elementData.length];
     }
     
     // Returns true if the given value is found in this set.
@@ -113,15 +115,18 @@ public class MyHashSet {
     private int hashFunction(int value) {
     	return Math.abs(value % elementData.length);
     }
-    
+    //Adam
     private double loadFactor() {
-    	// TO DO
-    	return 0.0;
+    	return (double) size/ elementData.length;
     }
     
     // Resizes the hash table to twice its former size.
     private void rehash() {
-    	// TO DO
+    	HashEntry[] oldElementData = this.elementData;
+    	elementData = new HashEntry[oldElementData.length];
+    	for (HashEntry element : elementData) {
+    	    add(element.data);
+      }
     }
     
     // Represents a single value in a chain stored in one hash bucket.
