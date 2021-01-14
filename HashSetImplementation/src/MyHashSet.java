@@ -1,10 +1,12 @@
-package HashSetImplementation.src;
+//package HashSetImplementation.src;
 
 // Implements a set of integers using a hash table.
 // The hash table uses separate chaining to resolve collisions.
-/* PARTICPIATION
-*
+
+/* PARTICIPATION
 * Adam: wrote clear, rehash and loadFactor and fixed bugs for test
+* Justin: push project to github. Wrote contains, remove and size
+* Jacob: Implemented Add and hash function
 * */
 public class MyHashSet {
     private static final double MAX_LOAD_FACTOR = 0.75;

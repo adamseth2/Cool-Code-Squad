@@ -1,8 +1,5 @@
-package HashSetImplementation.src;
 // This client program tests our hash set of integers
 // by adding and removing several elements from it.
-
-import java.util.Arrays;
 
 public class MyHashSetDriver {
     public static void main(String[] args) {
