@@ -124,7 +124,6 @@ public class MyHashSet {
     }
     //Adam
     private double loadFactor() {
-        System.out.println((double) size/ elementData.length);
 
         return (double) size/ elementData.length;
     }
@@ -136,8 +135,7 @@ public class MyHashSet {
     	size = 0;
         for (int i = 0; i < oldElementData.length; i++) {
             HashEntry curr = oldElementData[i];
-    	    while (curr != null) {
-    	      System.out.println(curr.data);
+            while (curr != null) {
             add(curr.data);
             curr = curr.next;
     	    }
