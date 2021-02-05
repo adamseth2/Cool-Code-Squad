@@ -17,7 +17,7 @@ public class SearchTree<E extends Comparable<E>> {
     // post: constructs an empty search tree
     public SearchTree() {
 //      TO DO:
-        overallRoot = new SearchTreeNode<E>(null);
+        overallRoot = null;
     }
 
     // post: value added to tree so as to preserve binary search tree
@@ -29,7 +29,7 @@ public class SearchTree<E extends Comparable<E>> {
     // post: value added to tree so as to preserve binary search tree
     private SearchTreeNode<E> add(SearchTreeNode<E> root, E value) {
 //    	TO DO:
-        if (root == null || root.data == null) {
+        if (root == null) {
             root = new SearchTreeNode<E>(value);
         } else if (value.compareTo(root.data) < 0) {
             root.left = add(root.left, value);
@@ -69,7 +69,7 @@ public class SearchTree<E extends Comparable<E>> {
     // post: value removed to tree so as to preserve binary search tree
     //Justin Zhu
     private SearchTreeNode<E> remove(SearchTreeNode<E> root, E value) {
-        if(root == null || root.data == null){
+        if(root == null){
             return null;
         } else if(value.compareTo(root.data) > 0){
             //if the value that is going to be removed is greater than the current node, recursive call with the right branch because the right branch is bigger values
@@ -104,7 +104,11 @@ public class SearchTree<E extends Comparable<E>> {
     // post: prints the data of the tree, one per line
     // Jacob Kelleran
     public void print() {
-        printInorder(overallRoot);
+        if (overallRoot == null) {
+            System.out.println("null");
+        } else {
+            printInorder(overallRoot);
+        }
     }
 
     // post: prints the data of the tree using an inorder traversal

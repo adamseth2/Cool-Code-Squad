@@ -47,11 +47,11 @@ public class SearchTreeClient {
         numbers.print();
         
         System.out.print("Enter int to remove(0 to quit)? ");
-        while (number != 0) {
-            numbers.remove(number);
-            System.out.print("Next int to remove(0 to quit)? ");
-            number = console.nextInt();
-        }
+//        while (number != 0) {
+//            numbers.remove(number);
+//            System.out.print("Next int to remove(0 to quit)? ");
+//            number = console.nextInt();
+//        }
         System.out.println();
         System.out.println("Sorted list (after removal):");
         numbers.print();
