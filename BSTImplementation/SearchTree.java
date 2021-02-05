@@ -11,61 +11,62 @@ PARTICIPATION:
  */
 
 public class SearchTree<E extends Comparable<E>> {
+
     private SearchTreeNode<E> overallRoot; // root of overall tree
 
     // post: constructs an empty search tree
     public SearchTree() {
 //      TO DO:
-      overallRoot = new SearchTreeNode<E>(null);
+        overallRoot = new SearchTreeNode<E>(null);
     }
 
     // post: value added to tree so as to preserve binary search tree
     public void add(E value) {
 //    	TO DO:
-      overallRoot = add(overallRoot, value);
+        overallRoot = add(overallRoot, value);
     }
 
     // post: value added to tree so as to preserve binary search tree
     private SearchTreeNode<E> add(SearchTreeNode<E> root, E value) {
 //    	TO DO:
-      if (root == null || root.data == null) {
-        root = new SearchTreeNode<E>(value);
-      } else if (value.compareTo(root.data) > 0) {
-        root.left = add(root.left, value);
-      } else if (value.compareTo(root.data) < 0) {
-        root.right = add(root.right, value);
-      }
-      return root;
+        if (root == null || root.data == null) {
+            root = new SearchTreeNode<E>(value);
+        } else if (value.compareTo(root.data) < 0) {
+            root.left = add(root.left, value);
+        } else if (value.compareTo(root.data) > 0) {
+            root.right = add(root.right, value);
+        }
+        return root;
     }
 
     // post: returns true if tree contains value, returns false otherwise
     public boolean contains(E value) {
 //    	TO DO:
-      return contains(overallRoot, value);
-    }   
+        return contains(overallRoot, value);
+    }
 
     // post: returns true if given tree contains value, returns false otherwise
     private boolean contains(SearchTreeNode<E> root, E value) {
 //    	TO DO:
-      if (root == null) {
-        return false;
-      } else if (value.compareTo(root.data) > 0) {
-        return contains(root.left, value);
-      } else if (value.compareTo(root.data) < 0) {
-         return contains(root.right, value);
-      } else { // value.compareTo(root.data) == 0
-        return true;
-      }
+        if (root == null) {
+            return false;
+        } else if (value.compareTo(root.data) < 0) {
+            return contains(root.left, value);
+        } else if (value.compareTo(root.data) > 0) {
+            return contains(root.right, value);
+        } else { // value.compareTo(root.data) == 0
+            return true;
+        }
     }
-    
+
     // post: value removed from tree so as to preserve binary search tree
     //Justin Zhu
     public void remove(E value) {
         this.overallRoot = remove(overallRoot, value);
     }
-    
-    
- // post: value removed to tree so as to preserve binary search tree
+
+
+    // post: value removed to tree so as to preserve binary search tree
     //Justin Zhu
     private SearchTreeNode<E> remove(SearchTreeNode<E> root, E value) {
         if(root == null || root.data == null){
@@ -89,8 +90,8 @@ public class SearchTree<E extends Comparable<E>> {
         }
         return root;
     }
-    
- // post: return the smallest value in the binary search tree
+
+    // post: return the smallest value in the binary search tree
     //Justin Zhu
     private E findSmallest(SearchTreeNode<E> root) {
         if(root.left == null){
@@ -101,16 +102,20 @@ public class SearchTree<E extends Comparable<E>> {
     }
 
     // post: prints the data of the tree, one per line
+    // Jacob Kelleran
     public void print() {
-//    	TO DO:
+        printInorder(overallRoot);
     }
 
     // post: prints the data of the tree using an inorder traversal
+    // Jacob Kelleran
     private void printInorder(SearchTreeNode<E> root) {
 //    	TO DO:
+        if (root.left != null)  printInorder(root.left);
+        System.out.println(root.data);
+        if (root.right != null) printInorder(root.right);
     }
-    
-    
+
 
     private static class SearchTreeNode<E> {
         public E data;                   // data stored in this node
@@ -130,4 +135,5 @@ public class SearchTree<E extends Comparable<E>> {
             this.right = right;
         }
     }
+
 }
